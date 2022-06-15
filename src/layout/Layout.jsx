@@ -4,9 +4,11 @@ import { Link, Outlet } from 'react-router-dom'
 const Layout = () => {
   return (
       <div className='md:flex md:min-h-screen'>
-        <div className='md:w-1/4 px-5 py-10 border-black border-r-2'>
-            <h2 className='text-4xl font-black text-center text-black'>Base de Pedidos</h2>
-            <nav className='mt-10'>
+        <div className='md:w-1/4 border-black border-r-2'>
+            <div className='bg-black px-5 py-10'>
+                <h2 className='text-4xl font-black text-center text-white'>Base de Pedidos</h2>
+            </div>
+            <nav className='mt-10 px-5'>
                 <Link
                     to="/buscar"
                     className='text-black text-2xl block mt-2'

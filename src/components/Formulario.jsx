@@ -6,11 +6,12 @@ import Error from './Error'
 const Formulario = () => {
 
     const nuevoPedidoSchema = yup.object().shape({
-        numero: yup.number().integer('Numero no valido').positive('Numero no valido').required('El numero es requerido'),
+        numero: yup.number().positive('El numero de pedido es invalido').integer('El numero de pedido es invalido').required('El numero de pedido es requerido'),
         empresa: yup.string().max(20, 'El nombre de la empresa es muy largo').required('El nombre de la empresa es requerido'),
-        telefono: yup.number().integer('Numero invalido').positive('Numero invalido').typeError('El numero es requerido'),
-        estado: yup.string().required('El estado es requerido'),
-        descripcion: yup.string().min(5, 'La descripcion del pedido es muy corta').max(50, 'La descripciond el pedido es muy larga').required('La descripcion del pedido es requerida')
+        descripcion: yup.string().min(10, 'La descripcion del pedido es muy corta').max(50, 'La descripcion del pedido es muy larga').required('La descripcion del pedido es requerida'),
+        telefono: yup.number('El numero de telefono es invalido').positive('El numero de telefono es invalido').integer().typeError('El numero de telefono es invalido'),
+        taller: yup.string().min(5,'El nombre es muy corto').max(10, 'El nombre es muy largo'),
+        estado: yup.string().min(5, 'El estado del pedido es muy corto').max(10, 'El estado del pedido es muy largo')
     })
 
     const nuevoPedido = () => {
@@ -86,6 +87,13 @@ const Formulario = () => {
                                     name="empresa"
                                     className="block w-full p-3"
                                 />
+                                {
+                                    errors.empresa && touched.empresa ? (
+                                        <Error>{errors.empresa}</Error>
+                                    ) : (
+                                        null
+                                    )
+                                }
                             </div>
                             <div className='mt-3'>
                                 <label 
@@ -100,6 +108,13 @@ const Formulario = () => {
                                     name="telefono"
                                     className="block w-full p-3"
                                 />
+                                {
+                                    errors.telefono && touched.telefono ? (
+                                        <Error>{errors.telefono}</Error>
+                                    ) : (
+                                        null
+                                    )
+                                }
                             </div>
                             <div className='mt-3'>
                                 <label 
@@ -114,6 +129,13 @@ const Formulario = () => {
                                     name="taller"
                                     className="block w-full p-3"
                                 />
+                                {
+                                    errors.taller && touched.taller ? (
+                                        <Error>{errors.taller}</Error>
+                                    ) : (
+                                        null
+                                    )
+                                }
                             </div>
                             <div className='mt-3'>
                                 <label 
@@ -143,6 +165,13 @@ const Formulario = () => {
                                     name="descripcion"
                                     className="block w-full p-3 h-40"
                                 />
+                                {
+                                    errors.descripcion && touched.descripcion ? (
+                                        <Error>{errors.descripcion}</Error>
+                                    ) : (
+                                        null
+                                    )
+                                }
                             </div>
                             <input 
                                 type="submit" 
