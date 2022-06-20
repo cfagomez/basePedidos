@@ -1,9 +1,12 @@
 import { Formik, Form, Field } from 'formik'
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import * as yup from 'yup'
 import Error from './Error'
 
 const Formulario = () => {
+
+    const navigate = useNavigate()
 
     const nuevoPedidoSchema = yup.object().shape({
         numero: yup.number().positive('El numero de pedido es invalido').integer('El numero de pedido es invalido').required('El numero de pedido es requerido'),
@@ -14,8 +17,21 @@ const Formulario = () => {
         estado: yup.string().min(5, 'El estado del pedido es muy corto').max(10, 'El estado del pedido es muy largo')
     })
 
-    const nuevoPedido = () => {
-        console.log('Nuevo pedido agregado')
+    const crearNuevoPedido = async (values) => {
+        
+        const url = "http://localhost:4000/clientes"
+        const respuesta = await fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(values),
+            headers: {
+                'Content-type':'application/json'
+            }
+        })
+        const resultado = await respuesta.json()
+        console.log(resultado)
+
+        navigate('/')
+
     }
 
   return (
@@ -30,7 +46,10 @@ const Formulario = () => {
                 estado: '',
                 descripcion: '',
             }}
-            onSubmit={(values) => nuevoPedido(values)}
+            onSubmit={async(values, {resetForm}) => {
+                await crearNuevoPedido(values)
+                resetForm()
+            }}
             validationSchema={nuevoPedidoSchema}
         >
             {

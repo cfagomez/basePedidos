@@ -1,0 +1,44 @@
+{
+  "clientes": [
+    {
+      "numero": 666,
+      "fecha": "",
+      "empresa": " Atrium Carceri SRL",
+      "telefono": "",
+      "taller": "",
+      "estado": "",
+      "descripcion": "1 - Resistencia tipo plana, medidas 245*50mm",
+      "id": 1
+    },
+    {
+      "numero": 777,
+      "fecha": "",
+      "empresa": "House of Wax SA",
+      "telefono": "",
+      "taller": "",
+      "estado": "",
+      "descripcion": "2 Tubos de silimanita Ø20*2500mm",
+      "id": 2
+    },
+    {
+      "numero": 1,
+      "fecha": "",
+      "empresa": "Amorphis SHC",
+      "telefono": "",
+      "taller": "",
+      "estado": "",
+      "descripcion": "1 tubo bifilar Ø8*70mm",
+      "id": 3
+    },
+    {
+      "numero": 2,
+      "fecha": "",
+      "empresa": "Century SRL",
+      "telefono": "",
+      "taller": "",
+      "estado": "",
+      "descripcion": "1 pene de goma",
+      "id": 4
+    }
+  ]
+}
