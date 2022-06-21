@@ -19,7 +19,7 @@ const Formulario = () => {
 
     const crearNuevoPedido = async (values) => {
         
-        const url = "http://localhost:4000/clientes"
+        const url = "http://localhost:4000/pedidos"
         const respuesta = await fetch(url, {
             method: 'POST',
             body: JSON.stringify(values),
