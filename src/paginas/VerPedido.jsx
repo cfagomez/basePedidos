@@ -1,11 +1,13 @@
 import React from 'react'
 import {useParams} from 'react-router-dom'
+import Spinner from '../components/Spinner'
 
 const VerPedido = () => {
 
     const {id} = useParams()
 
     const [pedido, setPedido] = React.useState({})
+    const [cargando, setCargando] = React.useState(true)
 
     const {numero, empresa, descripcion, estado} = pedido
 
@@ -19,6 +21,7 @@ const VerPedido = () => {
                 const respuesta = await fetch(url)
                 const resultado = await respuesta.json()
                 setPedido(resultado)
+                setCargando(false)
 
             } catch (error) {
 
@@ -32,7 +35,7 @@ const VerPedido = () => {
 
     }, [])
 
-  return (
+  return cargando != true ? (
     <div>
         <h1 className='font-black text-4xl text-black'>Ver Pedido</h1>
         <p className='mt-3'>Informacion del Pedido</p>
@@ -53,6 +56,8 @@ const VerPedido = () => {
             {estado}
         </p>
     </div>
+  ) : (
+    <Spinner />
   )
 }
 
