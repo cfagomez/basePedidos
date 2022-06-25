@@ -58,192 +58,200 @@ const Formulario = ({pedidoEditar, id, cargando}) => {
 
   return (
       <>
-        <Formik
-            initialValues={{
-                numero: pedidoEditar?.numero ?? "",
-                fecha: pedidoEditar?.fecha ?? "",
-                empresa: pedidoEditar?.empresa ?? "",
-                telefono: pedidoEditar?.telefono ?? "",
-                taller: pedidoEditar?.taller ?? "",
-                estado: pedidoEditar?.estado ?? "",
-                descripcion: pedidoEditar?.descripcion ?? "",
-            }}
-            onSubmit={async(values, {resetForm}) => {
+        {
+            Object.keys(pedidoEditar).length === 0 ? (
+                <p className='text-4xl text-center'>No hay resultados</p>
+            ) : (
 
-                if (Object.keys(pedidoEditar).length > 0) {
+                <Formik
+                    initialValues={{
+                        numero: pedidoEditar?.numero ?? "",
+                        fecha: pedidoEditar?.fecha ?? "",
+                        empresa: pedidoEditar?.empresa ?? "",
+                        telefono: pedidoEditar?.telefono ?? "",
+                        taller: pedidoEditar?.taller ?? "",
+                        estado: pedidoEditar?.estado ?? "",
+                        descripcion: pedidoEditar?.descripcion ?? "",
+                    }}
+                    onSubmit={async(values, {resetForm}) => {
 
-                    await editarPedido(values)
+                        if (Object.keys(pedidoEditar).length > 0) {
 
-                } else {
+                            await editarPedido(values)
 
-                    await crearNuevoPedido(values)
+                        } else {
 
-                }
+                            await crearNuevoPedido(values)
 
-                resetForm()
-                
-            }}
-            validationSchema={nuevoPedidoSchema}
-            enableReinitialize={true}
-        >
-            {
-                ({errors, touched}) => {
+                        }
 
-                    return cargando != true ? (
+                        resetForm()
+                        
+                    }}
+                    validationSchema={nuevoPedidoSchema}
+                    enableReinitialize={true}
+                >
+                    {
+                        ({errors, touched}) => {
 
-                        <Form>
-                            <div className='mt-3'>
-                                <label 
-                                    htmlFor="numero"
-                                    className='text-white bg-black w-full block p-1'
-                                >
-                                    Numero
-                                </label>
-                                <Field
-                                    id="numero"
-                                    type="number"
-                                    name="numero"
-                                    className="block w-full p-3"
-                                />
-                                {
-                                    errors.numero && touched.numero ? (
-                                        <Error>{errors.numero}</Error>
-                                    ) : (
-                                        null
-                                    )
-                                }
-                            </div>
-                            <div className='mt-3'>
-                                <label 
-                                    htmlFor="fecha"
-                                    className='text-white bg-black w-full block p-1'
-                                >
-                                    Fecha
-                                </label>
-                                <Field
-                                    id="fecha"
-                                    type="date"
-                                    name="fecha"
-                                    className="block w-full p-3"
-                                />
-                            </div>
-                            <div className='mt-3'>
-                                <label 
-                                    htmlFor="empresa"
-                                    className='text-white bg-black w-full block p-1'
-                                >
-                                    Empresa
-                                </label>
-                                <Field
-                                    id="empresa"
-                                    type="text"
-                                    name="empresa"
-                                    className="block w-full p-3"
-                                />
-                                {
-                                    errors.empresa && touched.empresa ? (
-                                        <Error>{errors.empresa}</Error>
-                                    ) : (
-                                        null
-                                    )
-                                }
-                            </div>
-                            <div className='mt-3'>
-                                <label 
-                                    htmlFor="telefono"
-                                    className='text-white bg-black w-full block p-1'
-                                >
-                                    Telefono
-                                </label>
-                                <Field
-                                    id="telefono"
-                                    type="tel"
-                                    name="telefono"
-                                    className="block w-full p-3"
-                                />
-                                {
-                                    errors.telefono && touched.telefono ? (
-                                        <Error>{errors.telefono}</Error>
-                                    ) : (
-                                        null
-                                    )
-                                }
-                            </div>
-                            <div className='mt-3'>
-                                <label 
-                                    htmlFor="taller"
-                                    className='text-white bg-black w-full block p-1'
-                                >
-                                    Taller
-                                </label>
-                                <Field
-                                    id="taller"
-                                    type="text"
-                                    name="taller"
-                                    className="block w-full p-3"
-                                />
-                                {
-                                    errors.taller && touched.taller ? (
-                                        <Error>{errors.taller}</Error>
-                                    ) : (
-                                        null
-                                    )
-                                }
-                            </div>
-                            <div className='mt-3'>
-                                <label 
-                                    htmlFor="estado"
-                                    className='text-white bg-black w-full block p-1'
-                                >
-                                    Estado
-                                </label>
-                                <Field
-                                    id="estado"
-                                    type="text"
-                                    name="estado"
-                                    className="block w-full p-3"
-                                />
-                            </div>
-                            <div className='mt-3'>
-                                <label 
-                                    htmlFor="descripcion"
-                                    className='text-white bg-black w-full block p-1'
-                                >
-                                    Descripcion
-                                </label>
-                                <Field
-                                    as='textarea'
-                                    id="descripcion"
-                                    type="text"
-                                    name="descripcion"
-                                    className="block w-full p-3 h-40"
-                                />
-                                {
-                                    errors.descripcion && touched.descripcion ? (
-                                        <Error>{errors.descripcion}</Error>
-                                    ) : (
-                                        null
-                                    )
-                                }
-                            </div>
-                            <input 
-                                type="submit" 
-                                value={
-                                    Object.keys(pedidoEditar).length > 0 ? (
-                                        'Editar Pedido'
-                                    ) : (
-                                        'Agregar Pedido'
-                                    )
-                                }
-                                className='mt-5 w-full bg-black p-3 text-white text-lg'
-                            />
-                        </Form>
-                    ) : (
-                        <Spinner />
-                    )
-                }
-            }
-        </Formik>
+                            return cargando != true ? (
+
+                                <Form>
+                                    <div className='mt-3'>
+                                        <label 
+                                            htmlFor="numero"
+                                            className='text-white bg-black w-full block p-1'
+                                        >
+                                            Numero
+                                        </label>
+                                        <Field
+                                            id="numero"
+                                            type="number"
+                                            name="numero"
+                                            className="block w-full p-3"
+                                        />
+                                        {
+                                            errors.numero && touched.numero ? (
+                                                <Error>{errors.numero}</Error>
+                                            ) : (
+                                                null
+                                            )
+                                        }
+                                    </div>
+                                    <div className='mt-3'>
+                                        <label 
+                                            htmlFor="fecha"
+                                            className='text-white bg-black w-full block p-1'
+                                        >
+                                            Fecha
+                                        </label>
+                                        <Field
+                                            id="fecha"
+                                            type="date"
+                                            name="fecha"
+                                            className="block w-full p-3"
+                                        />
+                                    </div>
+                                    <div className='mt-3'>
+                                        <label 
+                                            htmlFor="empresa"
+                                            className='text-white bg-black w-full block p-1'
+                                        >
+                                            Empresa
+                                        </label>
+                                        <Field
+                                            id="empresa"
+                                            type="text"
+                                            name="empresa"
+                                            className="block w-full p-3"
+                                        />
+                                        {
+                                            errors.empresa && touched.empresa ? (
+                                                <Error>{errors.empresa}</Error>
+                                            ) : (
+                                                null
+                                            )
+                                        }
+                                    </div>
+                                    <div className='mt-3'>
+                                        <label 
+                                            htmlFor="telefono"
+                                            className='text-white bg-black w-full block p-1'
+                                        >
+                                            Telefono
+                                        </label>
+                                        <Field
+                                            id="telefono"
+                                            type="tel"
+                                            name="telefono"
+                                            className="block w-full p-3"
+                                        />
+                                        {
+                                            errors.telefono && touched.telefono ? (
+                                                <Error>{errors.telefono}</Error>
+                                            ) : (
+                                                null
+                                            )
+                                        }
+                                    </div>
+                                    <div className='mt-3'>
+                                        <label 
+                                            htmlFor="taller"
+                                            className='text-white bg-black w-full block p-1'
+                                        >
+                                            Taller
+                                        </label>
+                                        <Field
+                                            id="taller"
+                                            type="text"
+                                            name="taller"
+                                            className="block w-full p-3"
+                                        />
+                                        {
+                                            errors.taller && touched.taller ? (
+                                                <Error>{errors.taller}</Error>
+                                            ) : (
+                                                null
+                                            )
+                                        }
+                                    </div>
+                                    <div className='mt-3'>
+                                        <label 
+                                            htmlFor="estado"
+                                            className='text-white bg-black w-full block p-1'
+                                        >
+                                            Estado
+                                        </label>
+                                        <Field
+                                            id="estado"
+                                            type="text"
+                                            name="estado"
+                                            className="block w-full p-3"
+                                        />
+                                    </div>
+                                    <div className='mt-3'>
+                                        <label 
+                                            htmlFor="descripcion"
+                                            className='text-white bg-black w-full block p-1'
+                                        >
+                                            Descripcion
+                                        </label>
+                                        <Field
+                                            as='textarea'
+                                            id="descripcion"
+                                            type="text"
+                                            name="descripcion"
+                                            className="block w-full p-3 h-40"
+                                        />
+                                        {
+                                            errors.descripcion && touched.descripcion ? (
+                                                <Error>{errors.descripcion}</Error>
+                                            ) : (
+                                                null
+                                            )
+                                        }
+                                    </div>
+                                    <input 
+                                        type="submit" 
+                                        value={
+                                            Object.keys(pedidoEditar).length > 0 ? (
+                                                'Editar Pedido'
+                                            ) : (
+                                                'Agregar Pedido'
+                                            )
+                                        }
+                                        className='mt-5 w-full bg-black p-3 text-white text-lg'
+                                    />
+                                </Form>
+                            ) : (
+                                <Spinner />
+                            )
+                        }
+                    }
+                </Formik>
+
+            )
+        }
       </>
   )
 }
