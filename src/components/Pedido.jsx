@@ -24,6 +24,7 @@ const Pedido = ({pedido}) => {
             <button
                 type='button'
                 className='bg-black block w-full text-white p-2 font-bold text-xs mt-3'
+                onClick={() => navigate(`/editar/${id}`)}
             >
                 Editar
             </button>

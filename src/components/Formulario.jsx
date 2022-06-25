@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import * as yup from 'yup'
 import Error from './Error'
 
-const Formulario = () => {
+const Formulario = ({pedidoEditar, id}) => {
 
     const navigate = useNavigate()
 
@@ -34,23 +34,56 @@ const Formulario = () => {
 
     }
 
+    const editarPedido = async (values) => {
+
+        try {
+
+            const url = `http://localhost:4000/pedidos/${id}`
+            const respuesta = await fetch(url, {
+                method: 'PUT',
+                body: JSON.stringify(values),
+                headers: {
+                    'Content-type':'application/json'
+                }
+            })
+            const resultado = await respuesta.json()
+        } catch (error) {
+            console.log(error)
+        }
+
+        navigate(`/${id}`)
+
+    }
+
   return (
       <>
         <Formik
             initialValues={{
-                numero: '',
-                fecha: '',
-                empresa: '',
-                telefono: '',
-                taller: '',
-                estado: '',
-                descripcion: '',
+                numero: pedidoEditar?.numero ?? "",
+                fecha: pedidoEditar?.fecha ?? "",
+                empresa: pedidoEditar?.empresa ?? "",
+                telefono: pedidoEditar?.telefono ?? "",
+                taller: pedidoEditar?.taller ?? "",
+                estado: pedidoEditar?.estado ?? "",
+                descripcion: pedidoEditar?.descripcion ?? "",
             }}
             onSubmit={async(values, {resetForm}) => {
-                await crearNuevoPedido(values)
+
+                if (Object.keys(pedidoEditar).length > 0) {
+
+                    await editarPedido(values)
+
+                } else {
+
+                    await crearNuevoPedido(values)
+
+                }
+
                 resetForm()
+                
             }}
             validationSchema={nuevoPedidoSchema}
+            enableReinitialize={true}
         >
             {
                 ({errors, touched}) => {
@@ -194,7 +227,13 @@ const Formulario = () => {
                             </div>
                             <input 
                                 type="submit" 
-                                value="Agregar Pedido"
+                                value={
+                                    Object.keys(pedidoEditar).length > 0 ? (
+                                        'Editar Pedido'
+                                    ) : (
+                                        'Agregar Pedido'
+                                    )
+                                }
                                 className='mt-5 w-full bg-black p-3 text-white text-lg'
                             />
                         </Form>
@@ -204,6 +243,11 @@ const Formulario = () => {
         </Formik>
       </>
   )
+}
+
+Formulario.defaultProps = {
+    pedidoEditar: {},
+    id: {}
 }
 
 export default Formulario

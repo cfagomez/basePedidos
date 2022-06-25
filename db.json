@@ -3,7 +3,7 @@
     {
       "numero": 666,
       "fecha": "",
-      "empresa": " Atrium Carceri SRL",
+      "empresa": " Atrium Carceri ACT",
       "telefono": "",
       "taller": "",
       "estado": "",
@@ -49,6 +49,26 @@
       "estado": "",
       "descripcion": "1 vinilo de black metal",
       "id": 5
+    },
+    {
+      "numero": 777,
+      "fecha": "",
+      "empresa": "House of Wax SA ACT",
+      "telefono": "",
+      "taller": "",
+      "estado": "",
+      "descripcion": "2 Tubos de silimanita Ø20*2500mm",
+      "id": 6
+    },
+    {
+      "numero": 777,
+      "fecha": "",
+      "empresa": "House of Wax ACT",
+      "telefono": "",
+      "taller": "",
+      "estado": "",
+      "descripcion": "2 Tubos de silimanita Ø20*2500mm",
+      "id": 7
     }
   ]
 }
