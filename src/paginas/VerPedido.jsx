@@ -37,25 +37,33 @@ const VerPedido = () => {
 
   return cargando != true ? (
     <div>
-        <h1 className='font-black text-4xl text-black'>Ver Pedido</h1>
-        <p className='mt-3'>Informacion del Pedido</p>
-        <p className='text-4xl mt-10 text-black'>
-            <span className='font-bold uppercase text-black'>Pedido: </span>
-            {numero}
-        </p>
-        <p className='text-4xl mt-10 text-black'>
-            <span className='font-bold uppercase text-black'>Empresa: </span>
-            {empresa}
-        </p>
-        <p className='text-4xl mt-10 text-black'>
-            <span className='font-bold uppercase text-black'>Descripcion: </span>
-            {descripcion}
-        </p>
-        <p className='text-4xl mt-10 text-black'>
-            <span className='font-bold uppercase text-black'>Estado: </span>
-            {estado}
-        </p>
-    </div>
+        {
+            Object.keys(pedido).length === 0 ? (
+                <p className='text-4xl text-center'>No hay resultados</p>
+            ) : (
+                <>
+                    <h1 className='font-black text-4xl text-black'>Ver Pedido</h1>
+                    <p className='mt-3'>Informacion del Pedido</p>
+                    <p className='text-4xl mt-10 text-black'>
+                        <span className='font-bold uppercase text-black'>Pedido: </span>
+                        {numero}
+                    </p>
+                    <p className='text-4xl mt-10 text-black'>
+                        <span className='font-bold uppercase text-black'>Empresa: </span>
+                        {empresa}
+                    </p>
+                    <p className='text-4xl mt-10 text-black'>
+                        <span className='font-bold uppercase text-black'>Descripcion: </span>
+                        {descripcion}
+                    </p>
+                    <p className='text-4xl mt-10 text-black'>
+                        <span className='font-bold uppercase text-black'>Estado: </span>
+                        {estado}
+                    </p>
+                </>
+            )
+        }
+        </div>
   ) : (
     <Spinner />
   )
