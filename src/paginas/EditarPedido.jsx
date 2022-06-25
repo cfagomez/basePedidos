@@ -7,6 +7,7 @@ const EditarPedido = () => {
   const {id} = useParams()
   
   const [pedidoEditar, setPedidoEditar] = React.useState({})
+  const [cargando, setCargando] = React.useState(true)
 
   React.useEffect (() => {
 
@@ -18,6 +19,7 @@ const EditarPedido = () => {
         const respuesta = await fetch(url)
         const resultado = await respuesta.json()
         setPedidoEditar(resultado)
+        setCargando(false)
 
       } catch (error) {
 
@@ -37,6 +39,7 @@ const EditarPedido = () => {
         <Formulario 
           pedidoEditar={pedidoEditar}
           id={id}
+          cargando={cargando}
         />
     </>
   )

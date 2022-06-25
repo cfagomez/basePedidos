@@ -3,8 +3,9 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import * as yup from 'yup'
 import Error from './Error'
+import Spinner from './Spinner'
 
-const Formulario = ({pedidoEditar, id}) => {
+const Formulario = ({pedidoEditar, id, cargando}) => {
 
     const navigate = useNavigate()
 
@@ -88,7 +89,7 @@ const Formulario = ({pedidoEditar, id}) => {
             {
                 ({errors, touched}) => {
 
-                    return (
+                    return cargando != true ? (
 
                         <Form>
                             <div className='mt-3'>
@@ -237,6 +238,8 @@ const Formulario = ({pedidoEditar, id}) => {
                                 className='mt-5 w-full bg-black p-3 text-white text-lg'
                             />
                         </Form>
+                    ) : (
+                        <Spinner />
                     )
                 }
             }
@@ -247,7 +250,8 @@ const Formulario = ({pedidoEditar, id}) => {
 
 Formulario.defaultProps = {
     pedidoEditar: {},
-    id: {}
+    id: {},
+    cargando: {}
 }
 
 export default Formulario
