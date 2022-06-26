@@ -26,6 +26,19 @@ const Pedidos = () => {
 
   }, [])
 
+  const eliminarPedido = async (id) => {
+
+    const url = `http://localhost:4000/pedidos/${id}`
+    const respuesta = await fetch(url, {
+      method: 'DELETE'
+    })
+    await respuesta.json()
+
+    const listaPedidoModificada = pedidos.filter(pedido => pedido.id !== id)
+    setPedidos(listaPedidoModificada)
+
+  }
+
   return (
     <>
       <h1 className='font-black text-4xl text-black text-center'>Pedidos</h1>
@@ -45,6 +58,7 @@ const Pedidos = () => {
               <Pedido 
                 key={pedido.id}
                 pedido={pedido}
+                eliminarPedido={eliminarPedido}
               />
             ))
           }

@@ -1,7 +1,7 @@
 import React from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
-const Pedido = ({pedido}) => {
+const Pedido = ({pedido, eliminarPedido}) => {
 
     const navigate = useNavigate()
 
@@ -31,6 +31,7 @@ const Pedido = ({pedido}) => {
             <button
                 type='button'
                 className='bg-black block w-full text-white p-2 font-bold text-xs mt-3'
+                onClick={() => eliminarPedido(id)}
             >
                 Eliminar
             </button>
