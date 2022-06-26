@@ -59,7 +59,7 @@ const Formulario = ({pedidoEditar, id, cargando}) => {
   return (
       <>
         {
-            Object.keys(pedidoEditar).length === 0 ? (
+            Object.keys(pedidoEditar).length === 0 && !id ? (
                 <p className='text-4xl text-center'>No hay resultados</p>
             ) : (
 
