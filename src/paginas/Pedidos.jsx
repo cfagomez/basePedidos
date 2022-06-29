@@ -28,34 +28,39 @@ const Pedidos = ({eliminarPedido, pedidos, setPedidos, setCargando, cargando}) =
 
   }, [])
 
-  return !cargando ? (
+  return (
     <>
       <h1 className='font-black text-4xl text-black text-center'>Pedidos</h1>
-      <table className='w-full mt-5 table-auto shadow bg-white'>
-        <thead className='bg-black text-white'>
-          <tr>
-            <th className='p-2'>Numero de Pedido</th>
-            <th className='p-2'>Empresa</th>
-            <th className='p-2'>Descripcion</th>
-            <th className='p-2'>Estado</th>
-            <th className='p-2'>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            pedidos.map((pedido) => (
-              <Pedido 
-                key={pedido.id}
-                pedido={pedido}
-                eliminarPedido={eliminarPedido}
-              />
-            ))
-          }
-        </tbody>
-      </table>
+      {
+        cargando ? (
+          <Spinner />
+        ) : (
+      
+          <table className='w-full mt-5 table-auto shadow bg-white'>
+            <thead className='bg-black text-white'>
+              <tr>
+                <th className='p-2'>Numero de Pedido</th>
+                <th className='p-2'>Empresa</th>
+                <th className='p-2'>Descripcion</th>
+                <th className='p-2'>Estado</th>
+                <th className='p-2'>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                pedidos.map((pedido) => (
+                  <Pedido 
+                    key={pedido.id}
+                    pedido={pedido}
+                    eliminarPedido={eliminarPedido}
+                  />
+                ))
+              }
+            </tbody>
+          </table>
+      )
+      } 
     </>
-  ) : (
-    <Spinner />
   )
 }
 

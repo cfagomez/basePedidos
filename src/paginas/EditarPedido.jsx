@@ -1,6 +1,7 @@
 import React from 'react'
 import Formulario from '../components/Formulario'
 import {useParams} from 'react-router-dom'
+import Spinner from '../components/Spinner'
 
 const EditarPedido = () => {
 
@@ -36,11 +37,17 @@ const EditarPedido = () => {
   return (
     <>
         <div className='text-4xl text-black font-black text-center mb-10'>Edicion de Pedido</div>
-        <Formulario 
-          pedidoEditar={pedidoEditar}
-          id={id}
-          cargando={cargando}
-        />
+        {
+          cargando ? (
+            <Spinner />
+          ) : (
+            <Formulario 
+              pedidoEditar={pedidoEditar}
+              id={id}
+              cargando={cargando}
+            />
+          )
+        }
     </>
   )
 }

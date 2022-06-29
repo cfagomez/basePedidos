@@ -5,7 +5,7 @@ import * as yup from 'yup'
 import Error from './Error'
 import Spinner from './Spinner'
 
-const Formulario = ({pedidoEditar, id, cargando}) => {
+const Formulario = ({pedidoEditar, id}) => {
 
     const navigate = useNavigate()
 
@@ -94,7 +94,7 @@ const Formulario = ({pedidoEditar, id, cargando}) => {
                     {
                         ({errors, touched}) => {
 
-                            return cargando != true ? (
+                            return (
 
                                 <Form>
                                     <div className='mt-3'>
@@ -243,8 +243,6 @@ const Formulario = ({pedidoEditar, id, cargando}) => {
                                         className='mt-5 w-full bg-black p-3 text-white text-lg'
                                     />
                                 </Form>
-                            ) : (
-                                <Spinner />
                             )
                         }
                     }

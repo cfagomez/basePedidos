@@ -33,7 +33,7 @@ function App() {
           <Route path=":id" element={<VerPedido />}/>
           <Route path="buscar" element={<BuscarPedido eliminarPedido={eliminarPedido} setPedidos={setPedidos} pedidos={pedidos} setCargando={setCargando} cargando={cargando}/>}/>
           <Route path="nuevo" element={<NuevoPedido />}/>
-          <Route path="editar/:id" element={<EditarPedido />}/>
+          <Route path="editar/:id" element={<EditarPedido cargando={cargando}/>}/>
         </Route>
       </Routes>
     </BrowserRouter>
