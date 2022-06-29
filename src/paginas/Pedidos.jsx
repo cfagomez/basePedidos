@@ -1,9 +1,12 @@
 import React from 'react'
 import Pedido from '../components/Pedido'
+import Spinner from '../components/Spinner'
 
-const Pedidos = ({eliminarPedido, pedidos, setPedidos}) => {
+const Pedidos = ({eliminarPedido, pedidos, setPedidos, setCargando, cargando}) => {
 
   React.useEffect(() => {
+
+    setCargando(true)
 
     const obtenerPedidos = async () => {
 
@@ -13,6 +16,7 @@ const Pedidos = ({eliminarPedido, pedidos, setPedidos}) => {
         const respuesta = await fetch(url)
         const resultado = await respuesta.json()
         setPedidos(resultado)
+        setCargando(false)
 
       } catch (error) {
         console.log (error)
@@ -24,7 +28,7 @@ const Pedidos = ({eliminarPedido, pedidos, setPedidos}) => {
 
   }, [])
 
-  return (
+  return !cargando ? (
     <>
       <h1 className='font-black text-4xl text-black text-center'>Pedidos</h1>
       <table className='w-full mt-5 table-auto shadow bg-white'>
@@ -50,6 +54,8 @@ const Pedidos = ({eliminarPedido, pedidos, setPedidos}) => {
         </tbody>
       </table>
     </>
+  ) : (
+    <Spinner />
   )
 }
 

@@ -10,6 +10,7 @@ import React from "react"
 function App() {
 
   const [pedidos, setPedidos] = React.useState([])
+  const [cargando, setCargando] = React.useState(true)
   
   const eliminarPedido = async (id) => {
 
@@ -28,9 +29,9 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Pedidos eliminarPedido={eliminarPedido} pedidos={pedidos} setPedidos={setPedidos}/>}/>
+          <Route index element={<Pedidos eliminarPedido={eliminarPedido} pedidos={pedidos} setPedidos={setPedidos} setCargando={setCargando} cargando={cargando}/>}/>
           <Route path=":id" element={<VerPedido />}/>
-          <Route path="buscar" element={<BuscarPedido eliminarPedido={eliminarPedido} setPedidos={setPedidos} pedidos={pedidos}/>}/>
+          <Route path="buscar" element={<BuscarPedido eliminarPedido={eliminarPedido} setPedidos={setPedidos} pedidos={pedidos} setCargando={setCargando} cargando={cargando}/>}/>
           <Route path="nuevo" element={<NuevoPedido />}/>
           <Route path="editar/:id" element={<EditarPedido />}/>
         </Route>

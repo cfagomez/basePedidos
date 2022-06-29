@@ -1,24 +1,14 @@
 {
   "pedidos": [
     {
-      "numero": 666,
+      "numero": 1,
       "fecha": "",
-      "empresa": "Ancient Past",
+      "empresa": "Bella Donna",
       "telefono": "",
-      "taller": "",
+      "taller": "Charles",
       "estado": "",
-      "descripcion": "AAAAAAAAAAAAA",
+      "descripcion": "Soul Jazz Afro Jazz",
       "id": 1
-    },
-    {
-      "numero": 777,
-      "fecha": "",
-      "empresa": "Lustmord",
-      "telefono": "",
-      "taller": "",
-      "estado": "",
-      "descripcion": "12345678999999999",
-      "id": 2
     }
   ]
 }
