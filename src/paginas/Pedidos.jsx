@@ -1,9 +1,7 @@
 import React from 'react'
 import Pedido from '../components/Pedido'
 
-const Pedidos = () => {
-
-  const [pedidos, setPedidos] = React.useState([])
+const Pedidos = ({eliminarPedido, pedidos, setPedidos}) => {
 
   React.useEffect(() => {
 
@@ -25,19 +23,6 @@ const Pedidos = () => {
     obtenerPedidos()
 
   }, [])
-
-  const eliminarPedido = async (id) => {
-
-    const url = `http://localhost:4000/pedidos/${id}`
-    const respuesta = await fetch(url, {
-      method: 'DELETE'
-    })
-    await respuesta.json()
-
-    const listaPedidoModificada = pedidos.filter(pedido => pedido.id !== id)
-    setPedidos(listaPedidoModificada)
-
-  }
 
   return (
     <>

@@ -40,4 +40,8 @@ const Pedido = ({pedido, eliminarPedido}) => {
   )
 }
 
+Pedido.defaultProps = {
+    eliminarPedido: ""
+}
+
 export default Pedido

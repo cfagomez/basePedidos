@@ -1,13 +1,12 @@
-import { list } from 'postcss'
 import React from 'react'
 import Error from '../components/Error'
 import PedidoBusqueda from '../components/PedidoBusqueda'
 
-const BuscarPedido = () => {
+const BuscarPedido = ({eliminarPedido, setPedidos, pedidos}) => {
 
   const [pedidoBusqueda, setPedidoBusqueda] = React.useState('')
-  const [pedidos, setPedidos] = React.useState([])
   const [error, setError] = React.useState(null)
+  const [modoBusqueda, setModoBusqueda] = React.useState(false)
 
   const buscarPedido = async () => {
 
@@ -28,6 +27,7 @@ const BuscarPedido = () => {
       const resultado = await respuesta.json()
       const listaPedidosModificada = resultado.filter(pedido => pedido.numero == pedidoBusqueda)
       setPedidos(listaPedidosModificada)
+      setModoBusqueda(true)
       console.log(listaPedidosModificada)
       
     } catch (error) {
@@ -67,13 +67,24 @@ const BuscarPedido = () => {
       </div>
       <div className='mx-10'>
       {
-        pedidos.map(pedido => (
-          <PedidoBusqueda
-            key={pedido.id}
-            pedido={pedido}
-          />
-        ))
+        modoBusqueda ? (
+          <div>
+            {
+              pedidos.map(pedido => (
+                <PedidoBusqueda
+                  key={pedido.id}
+                  pedido={pedido}
+                  eliminarPedido={eliminarPedido}
+                  setPedidos={setPedidos}
+                />
+              ))
+            }
+          </div>  
+        ) : (
+          null
+        )
       }
+      
       </div>
     </>
   )
