@@ -32,7 +32,7 @@ function App() {
           <Route index element={<Pedidos eliminarPedido={eliminarPedido} pedidos={pedidos} setPedidos={setPedidos} setCargando={setCargando} cargando={cargando}/>}/>
           <Route path=":id" element={<VerPedido />}/>
           <Route path="buscar" element={<BuscarPedido eliminarPedido={eliminarPedido} setPedidos={setPedidos} pedidos={pedidos} setCargando={setCargando} cargando={cargando}/>}/>
-          <Route path="nuevo" element={<NuevoPedido />}/>
+          <Route path="nuevo" element={<NuevoPedido pedidos={pedidos}/>}/>
           <Route path="editar/:id" element={<EditarPedido cargando={cargando}/>}/>
         </Route>
       </Routes>

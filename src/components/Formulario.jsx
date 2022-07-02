@@ -3,11 +3,13 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import * as yup from 'yup'
 import Error from './Error'
-import Spinner from './Spinner'
 
-const Formulario = ({pedidoEditar, id}) => {
+const Formulario = ({pedidoEditar, id, pedidos}) => {
 
     const navigate = useNavigate()
+
+    const [reiniciarFormulario, setReiniciarFormulario] = React.useState(true)
+    const [error, setError] = React.useState(null)
 
     const nuevoPedidoSchema = yup.object().shape({
         numero: yup.number().positive('El numero de pedido es invalido').integer('El numero de pedido es invalido').required('El numero de pedido es requerido'),
@@ -19,6 +21,19 @@ const Formulario = ({pedidoEditar, id}) => {
     })
 
     const crearNuevoPedido = async (values) => {
+
+        const urlPedido = `http://localhost:4000/pedidos/${values.numero}`
+        const respuestaPedido = await fetch(urlPedido)
+        const resultadoPedido = await respuestaPedido.json()
+        
+        if (Object.keys(resultadoPedido).length > 0) {
+
+            setReiniciarFormulario(false)
+            setError('El numero ya esta en uso')
+            console.log('El numero ya esta en uso')
+            return
+
+        }
         
         const url = "http://localhost:4000/pedidos"
         const respuesta = await fetch(url, {
@@ -29,6 +44,8 @@ const Formulario = ({pedidoEditar, id}) => {
             }
         })
         const resultado = await respuesta.json()
+        resultado.id = resultado.numero
+        setError(null)
         console.log(resultado)
 
         navigate('/')
@@ -36,6 +53,19 @@ const Formulario = ({pedidoEditar, id}) => {
     }
 
     const editarPedido = async (values) => {
+
+        const urlPedido = `http://localhost:4000/pedidos/${values.numero}`
+        const respuestaPedido = await fetch(urlPedido)
+        const resultadoPedido = await respuestaPedido.json()
+        
+        if (Object.keys(resultadoPedido).length > 0) {
+
+            setReiniciarFormulario(false)
+            setError('El numero ya esta en uso')
+            console.log('El numero ya esta en uso')
+            return
+
+        }
 
         try {
 
@@ -47,7 +77,8 @@ const Formulario = ({pedidoEditar, id}) => {
                     'Content-type':'application/json'
                 }
             })
-            const resultado = await respuesta.json()
+            setError(null)
+            await respuesta.json()
         } catch (error) {
             console.log(error)
         }
@@ -85,11 +116,15 @@ const Formulario = ({pedidoEditar, id}) => {
 
                         }
 
-                        resetForm()
-                        
+                        if (reiniciarFormulario) {
+
+                            resetForm()
+
+                        }
+
                     }}
                     validationSchema={nuevoPedidoSchema}
-                    enableReinitialize={true}
+                    enableReinitialize={reiniciarFormulario}
                 >
                     {
                         ({errors, touched}) => {
@@ -113,6 +148,13 @@ const Formulario = ({pedidoEditar, id}) => {
                                         {
                                             errors.numero && touched.numero ? (
                                                 <Error>{errors.numero}</Error>
+                                            ) : (
+                                                null
+                                            )
+                                        }
+                                        {
+                                            !reiniciarFormulario ? (
+                                                <Error>{error}</Error>
                                             ) : (
                                                 null
                                             )
@@ -257,7 +299,8 @@ const Formulario = ({pedidoEditar, id}) => {
 Formulario.defaultProps = {
     pedidoEditar: {},
     id: {},
-    cargando: {}
+    cargando: {},
+    pedidos: {}
 }
 
 export default Formulario
